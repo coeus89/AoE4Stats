@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="AoE4Stats.Views.MatchesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:rows="using:AoE4Stats.Core.Presentation"
+    Background="Transparent">
+    <Grid Padding="{StaticResource PagePadding}" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Spacing="4">
+                <TextBlock Text="Recent matches" Style="{ThemeResource TitleTextBlockStyle}" />
+                <TextBlock
+                    Text="One page at a time from the player's public match list. Changing the filter or page is a new request; this screen does not poll."
+                    TextWrapping="WrapWholeWords"
+                    Opacity="0.75" />
+            </StackPanel>
+            <ComboBox
+                x:Name="FilterBox"
+                Grid.Column="1"
+                Header="Filter"
+                ItemsSource="{x:Bind ViewModel.Filters}"
+                DisplayMemberPath="Label"
+                SelectedIndex="0"
+                HorizontalAlignment="Stretch"
+                SelectionChanged="Filter_SelectionChanged" />
+            <Button Grid.Column="2" Content="Refresh" Command="{x:Bind ViewModel.RefreshCommand}" VerticalAlignment="Bottom" />
+        </Grid>
+
+        <StackPanel Grid.Row="1" Spacing="8">
+            <InfoBar
+                IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                Severity="Error"
+                Title="Matches unavailable"
+                Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                IsClosable="False" />
+            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolVis}}">
+                <ProgressRing IsActive="True" Width="20" Height="20" />
+                <TextBlock Text="Loading matches…" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock Text="{x:Bind ViewModel.Status, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+            <TextBlock Text="{x:Bind ViewModel.Freshness, Mode=OneWay}" Opacity="0.7" TextWrapping="WrapWholeWords" />
+            <TextBlock
+                Text="Choose a player from Search to see recent matches."
+                Visibility="{x:Bind ViewModel.NeedsPlayer, Mode=OneWay, Converter={StaticResource BoolVis}}" />
+            <TextBlock
+                Text="AoE4 World returned no matches for this filter."
+                Visibility="{x:Bind ViewModel.ShowEmpty, Mode=OneWay, Converter={StaticResource BoolVis}}" />
+        </StackPanel>
+
+        <ListView
+            Grid.Row="2"
+            ItemsSource="{x:Bind ViewModel.Rows, Mode=OneWay}"
+            SelectionMode="None"
+            Visibility="{x:Bind ViewModel.HasRows, Mode=OneWay, Converter={StaticResource BoolVis}}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="rows:MatchRow">
+                    <Grid ColumnSpacing="16" Padding="4,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="148" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="88" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{x:Bind Result}" FontWeight="SemiBold" Foreground="{x:Bind Result, Converter={StaticResource ResultBrush}, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind When}" Opacity="0.7" TextWrapping="WrapWholeWords" />
+                            <TextBlock Text="{x:Bind Duration}" Opacity="0.7" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="2">
+                            <TextBlock Text="{x:Bind Mode}" FontWeight="SemiBold" />
+                            <TextBlock Text="{x:Bind Map}" />
+                            <TextBlock Text="{x:Bind Civilization}" />
+                            <TextBlock Text="{x:Bind Opponents}" TextWrapping="WrapWholeWords" Opacity="0.85" />
+                            <TextBlock Text="{x:Bind Detail}" Opacity="0.65" TextWrapping="WrapWholeWords" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="2" Text="{x:Bind RatingChange}" HorizontalAlignment="Right" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+            <Button Content="Previous" Command="{x:Bind ViewModel.PreviousPageCommand}" />
+            <Button Content="Next page" Command="{x:Bind ViewModel.NextPageCommand}" />
+        </StackPanel>
+    </Grid>
+</Page>

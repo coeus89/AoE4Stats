@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AoE4Stats.Core/AoE4Stats.Core.csproj" />
+    <Project Path="src/AoE4Stats/AoE4Stats.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AoE4Stats.Core.Tests/AoE4Stats.Core.Tests.csproj" />
+  </Folder>
+</Solution>

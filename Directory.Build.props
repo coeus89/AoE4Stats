@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Product>AoE4 Stats</Product>
+    <Company>AoE4Stats</Company>
+    <Authors>AoE4Stats</Authors>
+    <Description>Unofficial public AoE4 World player lookup for Windows.</Description>
+    <Copyright>Copyright © 2026 AoE4Stats contributors</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+</Project>

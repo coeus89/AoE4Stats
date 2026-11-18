@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="AoE4Stats.Views.ReplayPlaceholderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+    <ScrollViewer>
+        <StackPanel Padding="{StaticResource PagePadding}" Spacing="14" MaxWidth="840" HorizontalAlignment="Left">
+            <TextBlock Text="Replays are not in this build" Style="{ThemeResource TitleTextBlockStyle}" />
+            <InfoBar
+                IsOpen="True"
+                Severity="Informational"
+                IsClosable="False"
+                Title="Placeholder only"
+                Message="AoE4 Stats does not open replays, does not read the game folder, and does not draw units." />
+
+            <TextBlock TextWrapping="WrapWholeWords" Text="A later version can add replay viewing. That work is not started here, and this page does not pretend a parser or a map is running." />
+
+            <TextBlock Text="What a real replay feature has to separate" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock TextWrapping="WrapWholeWords" Text="Build-order parsers read the recorded command stream: train, research, build, and similar orders. They can summarize what was ordered. They do not by themselves prove where a unit ended up." />
+            <TextBlock TextWrapping="WrapWholeWords" Text="Command destinations are the points the player clicked, or the points the replay stored as the order target. Actual positions come from the simulation. Units path, collide, get stuck, and die. A map that only plots command destinations will disagree with the match." />
+            <TextBlock TextWrapping="WrapWholeWords" Text="Capturing actual positions means running or sampling the game simulation, or reading positions the replay format stores at sample ticks when those samples exist, then drawing those samples. That engine-based capture is separate from a build-order parser. Neither one is implemented in AoE4 Stats." />
+
+            <TextBlock Text="Community projects to study later" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock TextWrapping="WrapWholeWords" Text="Two MIT-licensed projects are relevant as later integration references, not as code copied into this starter:" />
+            <TextBlock TextWrapping="WrapWholeWords" Text="exoque/aoe4replayanalyzer — build-order oriented replay analysis. https://github.com/exoque/aoe4replayanalyzer" />
+            <TextBlock TextWrapping="WrapWholeWords" Text="BigManJohn000/aoe4-replay-viewer — replay viewing. https://github.com/BigManJohn000/aoe4-replay-viewer" />
+            <TextBlock TextWrapping="WrapWholeWords" Opacity="0.75" Text="Integrate them only after a separate review of license, replay format, and distribution. Do not present their output as part of this build." />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

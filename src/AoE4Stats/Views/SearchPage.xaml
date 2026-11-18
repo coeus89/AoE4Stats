@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="AoE4Stats.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:rows="using:AoE4Stats.Core.Presentation"
+    Background="Transparent">
+    <Grid Padding="{StaticResource PagePadding}" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="Find a player" Style="{ThemeResource TitleTextBlockStyle}" />
+            <TextBlock
+                Text="Names are sent to aoe4world.com when you search. This app stores only the player you select, on this PC."
+                Style="{ThemeResource BodyTextBlockStyle}"
+                Opacity="0.8"
+                TextWrapping="WrapWholeWords" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox
+                x:Name="QueryBox"
+                PlaceholderText="Player name, at least 3 characters"
+                Text="{x:Bind ViewModel.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                KeyDown="QueryBox_KeyDown"
+                AutomationProperties.Name="Player name" />
+            <Button
+                Grid.Column="1"
+                Content="Search"
+                Command="{x:Bind ViewModel.SearchCommand}"
+                Style="{ThemeResource AccentButtonStyle}"
+                MinWidth="112"
+                AutomationProperties.Name="Search AoE4 World" />
+        </Grid>
+
+        <StackPanel Grid.Row="2" Spacing="8">
+            <TextBlock Text="{x:Bind ViewModel.Hint, Mode=OneWay}" Opacity="0.75" TextWrapping="WrapWholeWords" />
+            <InfoBar
+                IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                Severity="Error"
+                Title="Search failed"
+                Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                IsClosable="False" />
+            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolVis}}">
+                <ProgressRing IsActive="True" Width="20" Height="20" />
+                <TextBlock Text="Asking AoE4 World…" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock Text="{x:Bind ViewModel.Status, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+        </StackPanel>
+
+        <Grid Grid.Row="3">
+            <StackPanel
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Spacing="6"
+                MaxWidth="460"
+                Visibility="{x:Bind ViewModel.ShowEmpty, Mode=OneWay, Converter={StaticResource BoolVis}}">
+                <TextBlock Text="No players matched" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalAlignment="Center" />
+                <TextBlock
+                    Text="Try a longer or more exact name. Empty means AoE4 World returned no rows, not that a profile was invented."
+                    TextWrapping="WrapWholeWords"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"
+                    Opacity="0.75" />
+            </StackPanel>
+
+            <ListView
+                ItemsSource="{x:Bind ViewModel.Results, Mode=OneWay}"
+                SelectionMode="None"
+                IsItemClickEnabled="True"
+                ItemClick="Results_ItemClick"
+                Visibility="{x:Bind ViewModel.HasResults, Mode=OneWay, Converter={StaticResource BoolVis}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="rows:PlayerSearchItem">
+                        <Grid ColumnSpacing="12" Padding="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <PersonPicture
+                                DisplayName="{x:Bind Name}"
+                                ProfilePicture="{x:Bind AvatarUri, Converter={StaticResource UriToImage}, Mode=OneWay}"
+                                Width="40"
+                                Height="40" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                <TextBlock Text="{x:Bind Name}" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                                <TextBlock Text="{x:Bind Summary}" Opacity="0.8" TextWrapping="WrapWholeWords" />
+                                <TextBlock Text="{x:Bind LastGame}" Opacity="0.65" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Spacing="2">
+                                <TextBlock Text="{x:Bind Country}" HorizontalAlignment="Right" />
+                                <TextBlock Text="{x:Bind IdText}" Opacity="0.6" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+            <Button Content="Previous" Command="{x:Bind ViewModel.PreviousPageCommand}" />
+            <Button Content="Next page" Command="{x:Bind ViewModel.NextPageCommand}" />
+        </StackPanel>
+    </Grid>
+</Page>

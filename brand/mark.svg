@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AoE4 Stats mark">
+  <rect width="64" height="64" rx="12" fill="#16343F"/>
+  <polygon points="32,8 40,16 32,24 24,16" fill="#F7F1E1"/>
+  <rect x="14" y="36" width="10" height="16" rx="2" fill="#E0C17A"/>
+  <rect x="27" y="26" width="10" height="26" rx="2" fill="#E0C17A"/>
+  <rect x="40" y="16" width="10" height="36" rx="2" fill="#E0C17A"/>
+</svg>

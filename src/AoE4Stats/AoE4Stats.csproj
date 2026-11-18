@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>AoE4Stats</RootNamespace>
+    <AssemblyName>AoE4Stats</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+    <Platforms>x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <!-- WinUI rejects an empty or Any CPU platform. Map those to x64 so a plain build has a target. -->
+    <Platform Condition="'$(Platform)' == '' Or '$(Platform)' == 'AnyCPU' Or '$(Platform)' == 'Any CPU'">x64</Platform>
+    <UseWinUI>true</UseWinUI>
+    <!-- WinUI 3 comes from Microsoft.WindowsAppSDK, not the inbox Windows SDK WinUI references. -->
+    <WinUISDKReferences>false</WinUISDKReferences>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsPackageType>MSIX</WindowsPackageType>
+    <!--
+      .NET SDK 10.0.403 maps net10.0-windows10.0.26100.0 to this ref package.
+      It is Microsoft.Windows.SDK.NET.Ref, not the Windows SDK installer build 10.0.26100.9457.
+    -->
+    <WindowsSdkPackageVersion>10.0.26100.57</WindowsSdkPackageVersion>
+    <!-- Signing stays off in source control. See README for a local development certificate. -->
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <GenerateAppxPackageOnBuild>false</GenerateAppxPackageOnBuild>
+    <AppxBundle>Never</AppxBundle>
+    <!-- Reflection-based JSON and the first Windows build are more predictable with trimming off. -->
+    <PublishTrimmed>false</PublishTrimmed>
+    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">false</PublishReadyToRun>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\AppIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Assets\**\*.png" />
+    <Content Include="Assets\**\*.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AoE4Stats.Core\AoE4Stats.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.9457" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.WinApp" Version="0.8.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.6.5" />
+  </ItemGroup>
+
+  <!--
+    Lets Visual Studio show Package and Publish before the Windows App SDK restore finishes.
+    Built into Visual Studio 2026. Do not install a preview packaging tool for this.
+  -->
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)' != 'true' and '$(EnableMsixTooling)' == 'true'">
+    <ProjectCapability Include="Msix" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)' != 'true' and '$(EnableMsixTooling)' == 'true'">
+    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+</Project>

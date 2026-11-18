@@ -1,0 +1,85 @@
+{
+  "name": "Beasty",
+  "profile_id": 8139502,
+  "steam_id": "76561199220282003",
+  "site_url": "http://aoe4world.com/players/8139502",
+  "avatars": {
+    "small": null,
+    "medium": null,
+    "full": null
+  },
+  "country": "rs",
+  "social": {
+    "twitch": "https://www.twitch.tv/beastyqt"
+  },
+  "modes": {
+    "rm_solo": {
+      "rating": 1729,
+      "rank": 306,
+      "rank_level": "conqueror_3",
+      "streak": 2,
+      "games_count": 7,
+      "wins_count": 5,
+      "losses_count": 2,
+      "win_rate": 71.4,
+      "season": 14,
+      "last_game_at": "2026-09-13T18:10:21.000Z",
+      "rating_history": {
+        "1": { "rating": 1700, "games_count": 6 }
+      },
+      "civilizations": [
+        {
+          "civilization": "macedonian_dynasty",
+          "win_rate": 78.125,
+          "pick_rate": 8.96,
+          "games_count": 32
+        }
+      ],
+      "previous_seasons": [
+        {
+          "rating": 2182,
+          "rank": 16,
+          "rank_level": "conqueror_3",
+          "season": 13,
+          "games_count": 204,
+          "wins_count": 151,
+          "losses_count": 53,
+          "win_rate": 74.0
+        }
+      ]
+    },
+    "rm_team": {
+      "rank_level": "unranked",
+      "streak": 0,
+      "games_count": 0,
+      "wins_count": 0,
+      "losses_count": 0,
+      "season": 14
+    },
+    "qm_2v2": {
+      "rank_level": "unranked",
+      "games_count": 0,
+      "wins_count": 0,
+      "losses_count": 0
+    },
+    "rm_1v1_elo": {
+      "rating": 2145,
+      "rank": 33,
+      "rank_level": null,
+      "streak": 2,
+      "games_count": 1734,
+      "wins_count": 1429,
+      "losses_count": 305,
+      "win_rate": 82.4,
+      "last_game_at": "2026-09-13T18:10:21.000Z"
+    },
+    "rm_1v1": {
+      "_notice_": "legacy",
+      "rating": 1,
+      "games_count": 1,
+      "wins_count": 1,
+      "losses_count": 0,
+      "win_rate": 100
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="AoE4Stats.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="AoE4 Stats">
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="Base" />
+    </Window.SystemBackdrop>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TitleBar
+            x:Name="AppTitleBar"
+            Title="AoE4 Stats"
+            Subtitle="Unofficial AoE4 World lookup"
+            IsPaneToggleButtonVisible="True"
+            PaneToggleRequested="TitleBar_PaneToggleRequested">
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="ms-appx:///Assets/TitleIcon.png" />
+            </TitleBar.IconSource>
+            <TitleBar.Content>
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <TextBlock
+                        Text="{x:Bind Shell.Header, Mode=OneWay}"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                    <Button
+                        Content="Forget player"
+                        Command="{x:Bind Shell.ForgetCommand}"
+                        Visibility="{x:Bind ForgetVisibility(Shell.HasPlayer), Mode=OneWay}" />
+                </StackPanel>
+            </TitleBar.Content>
+        </TitleBar>
+
+        <NavigationView
+            x:Name="Nav"
+            Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
+            PaneDisplayMode="Auto"
+            OpenPaneLength="240"
+            ItemInvoked="Nav_ItemInvoked">
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="SearchItem" Content="Search" Tag="search" Icon="Find" />
+                <NavigationViewItem x:Name="DashboardItem" Content="Dashboard" Tag="dashboard" Icon="View" />
+                <NavigationViewItem x:Name="MatchesItem" Content="Matches" Tag="matches" Icon="AllApps" />
+                <NavigationViewItem x:Name="ReplaysItem" Content="Replays" Tag="replays" Icon="Video" />
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="AoE4 World API" Tag="api" Icon="Link" />
+            </NavigationView.FooterMenuItems>
+            <Frame x:Name="RootFrame" />
+        </NavigationView>
+    </Grid>
+</Window>

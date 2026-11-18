@@ -1,0 +1,47 @@
+{
+  "total_count": 139,
+  "page": 1,
+  "per_page": 50,
+  "count": 1,
+  "offset": 0,
+  "next_page": 2,
+  "players": [
+    {
+      "name": "Beasty",
+      "profile_id": 8139502,
+      "steam_id": "76561199220282003",
+      "avatars": {
+        "small": "https://avatars.akamai.steamstatic.com/3ecb9e719e441abca6ff718f9dcc20d1810c1839.jpg",
+        "medium": null,
+        "full": null
+      },
+      "country": "rs",
+      "social": {},
+      "last_game_at": "2026-10-24T16:03:32.000Z",
+      "leaderboards": {
+        "rm_solo": {
+          "rating": 1729,
+          "rank": 306,
+          "rank_level": "conqueror_3",
+          "streak": 2,
+          "games_count": 7,
+          "wins_count": 5,
+          "losses_count": 2,
+          "disputes_count": 0,
+          "drops_count": 0,
+          "last_game_at": "2026-09-13T18:10:21.000Z",
+          "win_rate": 71.4,
+          "season": 14
+        },
+        "rm_team": {
+          "rank_level": "unranked",
+          "streak": 0,
+          "games_count": 0,
+          "wins_count": 0,
+          "losses_count": 0,
+          "season": 14
+        }
+      }
+    }
+  ]
+}
